@@ -1,12 +1,13 @@
-const { ethers } = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
-	const Greeter = await ethers.getContractFactory("Greeter");
-	const greeter = await Greeter.deploy("Hello, Hardhat!");
+	const Horoscope = await hre.ethers.deployContract(
+		"contracts/horoscopeNFT.sol:horoscopeNFT"
+	);
+	const horoscope = await Horoscope.waitForDeployment();
 
-	await greeter.waitForDeployment();
-
-	console.log("Greeter deployed to:", await greeter.getAddress());
+	console.log("Deploying Contract...");
+	console.log("Contract deployed to address:", await horoscope.getAddress());
 }
 
 main()
